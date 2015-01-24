@@ -1,0 +1,80 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Provoke the Privacy Badger!</title>
+    <script type="text/javascript">
+      function provoke(button) {
+        var url = document.getElementById("domain").value;
+        if (url) {
+          if (!url.match(/^https?:/))
+            url = "http://" + url;
+          var frame = document.createElement("iframe");
+          frame.src = url;
+          frame.style.display = "none";
+          document.body.appendChild(frame);
+        } else {
+          alert("You must type in a domain with which to poke the Badger.");
+        }
+        return false;
+      }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <style type="text/css">
+      .container {
+        max-width: 750px;
+      }
+      ol {
+        font-size: 140%;
+      }
+      ol li + li {
+        margin-top: 1em;
+      }
+      #footer {
+        margin-top: 2em;
+      }
+    </style>
+  </head>
+  <body class="container">
+    <h1>Provoke the Privacy Badger!</h1>
+    <p>
+      This tiny page will help you whitelist (or otherwise change the blocking
+      status of) domains in the <a href="https://eff.org">EFF's</a> <a
+        href="https://www.eff.org/privacybadger">Privacy Badger</a> extension.
+      It is particularly useful for bookmarklets like <a
+        href="https://instapaper.com">Instapaper's</a> which auto-detect when
+      they're blocked and bring you to a new page, leaving you unable to adjust
+      the Privacy Badger settings.
+    </p>
+    <ol>
+      <li>
+        Type the domain you want to whitelist ↴
+        <input id="domain" type="url" width="80" placeholder="for example, instapaper.com" class="form-control input-lg">
+      </li>
+      <li>
+        <button onclick="return provoke(this)">Click this button to provoke the Badger!</button>
+      </li>
+      <li>
+        Open the Privacy Badger control panel.  Toggle the privacy sliders for
+        the domain(s) you want until they are green and the presence of an undo
+        arrow (on the right) indicates a manual change, like this:
+        <img src="example-unblocked.png"
+           class="image-responsive"
+             alt="Example showing Instapaper unblocked in the Privacy Badger control panel">
+      </li>
+    </ol>
+    <h4>How does this work?</h4>
+    <p>
+      Clicking the button above inserts an
+      <code>&lt;iframe&gt;</code> into the page that points to the domain you
+      typed in.  Loading the <code>&lt;iframe&gt;</code> triggers Privacy
+      Badger's detection and lets you adjust the settings for the domain in the
+      control panel.
+    </p>
+    <p id="footer" class="small">
+      Created by <a href="https://tsibley.net">Thomas Sibley</a>.
+      See the <a href="https://github.com/tsibley/provoke-the-privacy-badger">source code</a>.
+    </p>
+  </body>
+</html>
