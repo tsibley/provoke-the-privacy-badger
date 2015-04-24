@@ -7,12 +7,17 @@
       function provoke(button) {
         var url = document.getElementById("domain").value;
         if (url) {
-          if (!url.match(/^https?:/))
-            url = "http://" + url;
-          var frame = document.createElement("iframe");
-          frame.src = url;
-          frame.style.display = "none";
-          document.body.appendChild(frame);
+          var urls = [];
+          if (url.match(/^https?:/))
+            urls.push(url);
+          else
+            urls.push("http://" + url, "https://" + url);
+          urls.forEach(function(_){
+            var frame = document.createElement("iframe");
+            frame.src = _;
+            frame.style.display = "none";
+            document.body.appendChild(frame);
+          });
         } else {
           alert("You must type in a domain with which to poke the Badger.");
         }
